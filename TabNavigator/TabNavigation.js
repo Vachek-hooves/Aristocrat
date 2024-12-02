@@ -57,7 +57,8 @@ const TabNavigation = () => {
         tabBarInactiveTintColor: '#8E8E93', // Gray color for inactive icons
         tabBarShowLabel: false, // Hide labels
         tabBarItemStyle: {
-          padding: 4,
+          // padding: 4,
+          marginTop: 20,
         },
       }}>
       <Tab.Screen
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
   },
   addBtnBox: {
     position: 'absolute',
-    bottom: 5,
+    bottom: 20,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
