@@ -31,11 +31,16 @@ const AddButton = ({focused, navigation, currentTab}) => {
   };
 
   return (
-    <TouchableOpacity onPress={handlePress}>
-      <View style={styles.addButtonContainer}>
-        <Icon name="add" size={55} color="#FFFFFF" style={styles.addButton} />
-      </View>
+      <View style={styles.addBtnBox}>
+    <TouchableOpacity onPress={handlePress} style={styles.addBtnContainer}>
+        <Icon
+          name="add"
+          size={35} // Smaller icon size
+          color="#FFFFFF"
+          style={styles.addButton}
+        />
     </TouchableOpacity>
+      </View>
   );
 };
 
@@ -48,6 +53,12 @@ const TabNavigation = () => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: styles.tabBar,
+        tabBarActiveTintColor: '#FFFFFF', // White color for active icons
+        tabBarInactiveTintColor: '#8E8E93', // Gray color for inactive icons
+        tabBarShowLabel: false, // Hide labels
+        tabBarItemStyle: {
+          padding: 4,
+        },
       }}>
       <Tab.Screen
         name="TabProfileScreen"
@@ -119,44 +130,56 @@ export default TabNavigation;
 const styles = StyleSheet.create({
   tabBar: {
     position: 'absolute',
-    bottom: 25,
+    // bottom: 34,
     left: 20,
     right: 20,
     elevation: 0,
-    backgroundColor: '#ffffff',
-    borderRadius: 15,
-    height: 90,
+    backgroundColor: colors.gray,
+    borderRadius: 25,
+    height: 100,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 10,
+      height: 4,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5,
+    shadowOpacity: 0.15,
+    shadowRadius: 2,
+    paddingBottom: 8,
   },
-  addButtonContainer: {
+  addBtnBox: {
     position: 'absolute',
-    // bottom: 20,
+    bottom:5,
+    alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
   },
   addButton: {
-    backgroundColor: '#FF9F0A',
-    width: 82,
-    height: 82,
-    borderRadius: 41,
+    backgroundColor: '#0A84FF',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
     textAlign: 'center',
-    lineHeight: 82,
-    shadowColor: '#FF9F0A',
+    lineHeight: 50,
+    shadowColor: '#0A84FF',
     shadowOffset: {
       width: 0,
-      height: 10,
+      height: 4,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5,
+    shadowOpacity: 0.3,
+    shadowRadius: 4.5,
     elevation: 5,
   },
   
+  addBtnContainer: {
+    backgroundColor:colors.main,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 100,
+    height: 70,
+    borderRadius: 20,
+   
+
+  },
 });
 
 // Empty component for the Add tab
