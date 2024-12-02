@@ -1,14 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import TabLayout from '../../components/layout/TabLayout';
 
 const TabEventsScreen = () => {
-  return (
-    <View>
-      <Text>TabEventsScreen</Text>
-    </View>
-  )
-}
+  return <TabLayout></TabLayout>;
+};
 
-export default TabEventsScreen
+export default TabEventsScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
