@@ -9,9 +9,9 @@ function App() {
   return (
     <Provider>
       <NavigationContainer>
-      <Stack.Navigator>
-        {/* <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} /> */}
-        <Stack.Screen name="TabNavigation" component={TabNavigation} />
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+          <Stack.Screen name="TabNavigation" component={TabNavigation} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
