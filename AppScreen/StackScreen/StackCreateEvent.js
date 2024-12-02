@@ -32,7 +32,7 @@ const StackCreateEvent = () => {
     if (selectedEvent) {
       // Navigate to next screen with selected event
       console.log('Selected event:', selectedEvent);
-      navigation.navigate('StackAddEvent', {eventType: selectedEvent});
+      // navigation.navigate('StackAddEvent', {eventType: selectedEvent});
       // navigation.navigate('NextScreen', { eventType: selectedEvent });
     }
   };
@@ -40,10 +40,9 @@ const StackCreateEvent = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
+          onPress={() => navigation.goBack()}>
           <Icon name="arrow-back" size={24} color="#0A84FF" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Add Event</Text>
@@ -52,7 +51,7 @@ const StackCreateEvent = () => {
       <Text style={styles.sectionTitle}>Type of event</Text>
 
       <ScrollView style={styles.eventList} showsVerticalScrollIndicator={false}>
-        {Events.map((event) => (
+        {Events.map(event => (
           <TouchableOpacity
             key={event.id}
             style={[
@@ -67,10 +66,7 @@ const StackCreateEvent = () => {
       </ScrollView>
 
       <TouchableOpacity
-        style={[
-          styles.nextButton,
-          {opacity: selectedEvent ? 1 : 0.5},
-        ]}
+        style={[styles.nextButton, {opacity: selectedEvent ? 1 : 0.5}]}
         onPress={handleNext}
         disabled={!selectedEvent}>
         <Text style={styles.nextButtonText}>Next</Text>

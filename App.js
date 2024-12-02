@@ -2,7 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import TabNavigation from './TabNavigator/TabNavigation';
 import {
-  StackAddEvent,
+  // StackAddEvent,
   StackCreateEvent,
   StackCreatHobbie,
   WelcomeScreen,
@@ -19,7 +19,7 @@ function App() {
           <Stack.Screen name="TabNavigation" component={TabNavigation} />
           <Stack.Screen name="StackCreateHobbie" component={StackCreatHobbie} />
           <Stack.Screen name="StackCreateEvent" component={StackCreateEvent} />
-          <Stack.Screen name="StackAddEvent" component={StackAddEvent} />
+          {/* <Stack.Screen name="StackAddEvent" component={StackAddEvent} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
