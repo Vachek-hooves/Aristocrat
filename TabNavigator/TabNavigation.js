@@ -174,9 +174,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.main,
     justifyContent: 'center',
     alignItems: 'center',
-    width: 100,
-    height: 70,
-    borderRadius: 20,
+    width: 200,
+    // height: 30,
+    padding: 10,
+    borderRadius: '70%',
   },
 });
 
