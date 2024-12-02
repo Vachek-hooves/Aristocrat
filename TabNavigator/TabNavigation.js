@@ -6,6 +6,7 @@ import {
   TabRulesScreen,
   TabEventsScreen,
 } from '../AppScreen/TabScreen';
+import {colors} from '../constants/color';
 
 const Tab = createBottomTabNavigator();
 
