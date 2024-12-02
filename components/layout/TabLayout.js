@@ -1,14 +1,19 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { colors } from '../../constants/color'
 
-const TabLayout = () => {
+const TabLayout = ({children}) => {
   return (
-    <View>
-      <Text>TabLayout</Text>
+    <View style={styles.container}>
+      {children}
     </View>
   )
 }
 
 export default TabLayout
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    backgroundColor: colors.main
+  }
+})

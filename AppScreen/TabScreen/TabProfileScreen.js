@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import TabLayout from '../../components/layout/TabLayout'
 
 const TabProfileScreen = () => {
   return (
-    <View>
-      <Text>TabProfileScreen</Text>
-    </View>
+    <TabLayout>
+      
+    </TabLayout>
   )
 }
 

@@ -31,16 +31,16 @@ const AddButton = ({focused, navigation, currentTab}) => {
   };
 
   return (
-      <View style={styles.addBtnBox}>
-    <TouchableOpacity onPress={handlePress} style={styles.addBtnContainer}>
+    <View style={styles.addBtnBox}>
+      <TouchableOpacity onPress={handlePress} style={styles.addBtnContainer}>
         <Icon
           name="add"
           size={35} // Smaller icon size
           color="#FFFFFF"
           style={styles.addButton}
         />
-    </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -61,18 +61,6 @@ const TabNavigation = () => {
         },
       }}>
       <Tab.Screen
-        name="TabProfileScreen"
-        component={TabProfileScreen}
-        options={{
-          tabBarIcon: ({color}) => (
-            <Entypo name="user" color={color} size={26} />
-          ),
-        }}
-        listeners={{
-          tabPress: () => setCurrentTab('TabProfileScreen'),
-        }}
-      />
-      <Tab.Screen
         name="TabHobbiesScreen"
         component={TabHobbiesScreen}
         options={{
@@ -84,18 +72,29 @@ const TabNavigation = () => {
           tabPress: () => setCurrentTab('TabHobbiesScreen'),
         }}
       />
+
+      <Tab.Screen
+        name="TabEventsScreen"
+        component={TabEventsScreen}
+        options={{
+          tabBarIcon: ({color}) => (
+            <Icon name="calendar" color={color} size={26} />
+          ),
+        }}
+        listeners={{
+          tabPress: () => setCurrentTab('TabEventsScreen'),
+        }}
+      />
       <Tab.Screen
         name=" "
-        component={EmptyComponent} // You can create an empty component
+        component={EmptyComponent}
         options={{
           tabBarIcon: ({focused}) => (
-            <View style={styles.createBtnContainer}>
-              <AddButton
-                focused={focused}
-                navigation={navigation}
-                currentTab={currentTab}
-              />
-            </View>
+            <AddButton
+              focused={focused}
+              navigation={navigation}
+              currentTab={currentTab}
+            />
           ),
         }}
       />
@@ -110,15 +109,15 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="TabEventsScreen"
-        component={TabEventsScreen}
+        name="TabProfileScreen"
+        component={TabProfileScreen}
         options={{
           tabBarIcon: ({color}) => (
-            <Icon name="calendar" color={color} size={26} />
+            <Entypo name="user" color={color} size={26} />
           ),
         }}
         listeners={{
-          tabPress: () => setCurrentTab('TabEventsScreen'),
+          tabPress: () => setCurrentTab('TabProfileScreen'),
         }}
       />
     </Tab.Navigator>
@@ -145,10 +144,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 2,
     paddingBottom: 8,
+    borderTopWidth: 0,
   },
   addBtnBox: {
     position: 'absolute',
-    bottom:5,
+    bottom: 5,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
@@ -169,16 +169,14 @@ const styles = StyleSheet.create({
     shadowRadius: 4.5,
     elevation: 5,
   },
-  
+
   addBtnContainer: {
-    backgroundColor:colors.main,
+    backgroundColor: colors.main,
     justifyContent: 'center',
     alignItems: 'center',
     width: 100,
     height: 70,
     borderRadius: 20,
-   
-
   },
 });
 
