@@ -55,9 +55,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.main,
     alignContent: 'center',
+    paddingBottom: 100,
   },
   contentContainer: {
-    padding: 20,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 40,
   },
   image: {
     width: '100%',
