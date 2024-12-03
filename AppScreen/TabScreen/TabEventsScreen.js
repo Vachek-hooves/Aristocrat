@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import NoEvents from '../../components/TabEventsComponents/NoEvents';
 
 const TabEventsScreen = () => {
-  const {allEvents} = useAppContext();
+  const {allEvents,deleteEvent} = useAppContext();
   const [selectedType, setSelectedType] = useState('All');
   const [expandedEventId, setExpandedEventId] = useState(null);
   console.log(allEvents);
@@ -48,7 +48,10 @@ const TabEventsScreen = () => {
     return `${selectedType}s`;
   };
 
-  console.log(filteredEvents,'filteredEvents');
+  const handleDeleteEvent = (id) => {
+    deleteEvent(id);
+    console.log(id)
+  };
 
   return (
     <TabLayout>
@@ -109,43 +112,50 @@ const TabEventsScreen = () => {
           ) : (
             filteredEvents.map(event => (
               <TouchableOpacity
-              key={event.id}
-              style={styles.eventCard}
-              onPress={() => toggleEventExpansion(event.id)}>
-              <View style={styles.eventHeader}>
-                <Text style={styles.eventTitle}>{event.title}</Text>
-                <Icon
-                  name={
-                    expandedEventId === event.id ? 'chevron-up' : 'chevron-down'
-                  }
-                  size={24}
-                  color="#8E8E93"
-                />
-              </View>
-              <Text style={styles.eventDescription}>{event.description}</Text>
-              {expandedEventId === event.id && (
-                <View style={styles.eventDetails}>
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>Date</Text>
-                    <Text style={styles.detailValue}>{event.date}</Text>
-                  </View>
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>Time</Text>
-                    <Text style={styles.detailValue}>{event.time}</Text>
-                  </View>
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>Place</Text>
-                    <Text style={styles.detailValue}>{event.location}</Text>
-                  </View>
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>Dresscode</Text>
-                    <Text style={styles.detailValue}>{event.type}</Text>
-                  </View>
-                  {/* <TouchableOpacity style={styles.rulesButton}>
+                key={event.id}
+                style={styles.eventCard}
+                onPress={() => toggleEventExpansion(event.id)}>
+                <View style={styles.eventHeader}>
+                  <Text style={styles.eventTitle}>{event.title}</Text>
+                  <Icon
+                    name={
+                      expandedEventId === event.id
+                        ? 'chevron-up'
+                        : 'chevron-down'
+                    }
+                    size={24}
+                    color="#8E8E93"
+                  />
+                </View>
+                <Text style={styles.eventDescription}>{event.description}</Text>
+                {expandedEventId === event.id && (
+                  <View style={styles.eventDetails}>
+                    <View style={styles.detailRow}>
+                      <Text style={styles.detailLabel}>Date</Text>
+                      <Text style={styles.detailValue}>{event.date}</Text>
+                    </View>
+                    <View style={styles.detailRow}>
+                      <Text style={styles.detailLabel}>Time</Text>
+                      <Text style={styles.detailValue}>{event.time}</Text>
+                    </View>
+                    <View style={styles.detailRow}>
+                      <Text style={styles.detailLabel}>Place</Text>
+                      <Text style={styles.detailValue}>{event.location}</Text>
+                    </View>
+                    <View style={styles.detailRow}>
+                      <Text style={styles.detailLabel}>Dresscode</Text>
+                      <Text style={styles.detailValue}>{event.type}</Text>
+                    </View>
+                    {/* <TouchableOpacity style={styles.rulesButton}>
                     <Text style={styles.rulesButtonText}>Check rules</Text>
                   </TouchableOpacity> */}
-                </View>
-              )}
+                    <TouchableOpacity
+                      style={styles.rulesButton}
+                      onPress={() => handleDeleteEvent(event.id)}>
+                      <Text style={styles.rulesButtonText}>Delete</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
               </TouchableOpacity>
             ))
           )}
@@ -243,13 +253,13 @@ const styles = StyleSheet.create({
   rulesButton: {
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#0A84FF',
+    borderColor: '#FF2D55',
     padding: 12,
     alignItems: 'center',
     marginTop: 8,
   },
   rulesButtonText: {
-    color: '#0A84FF',
+    color: '#FF2D55',
     fontSize: 14,
   },
   allFilterButton: {
