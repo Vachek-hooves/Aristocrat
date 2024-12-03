@@ -24,10 +24,8 @@ export const Provider = ({children}) => {
       setAllEvents(events);
       try {
         const loadedRules = await loadEtiquetteRules();
-
         if (loadedRules.length === 0) {
           const initialRules = await initEtiquetteRules();
-
           setEtiquetteRules(initialRules);
         } else {
           setEtiquetteRules(loadedRules);
