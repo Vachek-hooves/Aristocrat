@@ -16,7 +16,7 @@ const TabEventsScreen = () => {
   const {allEvents,deleteEvent} = useAppContext();
   const [selectedType, setSelectedType] = useState('All');
   const [expandedEventId, setExpandedEventId] = useState(null);
-  console.log(allEvents);
+  // console.log(allEvents);
 
   const getEventColor = title => {
     const colors = {

@@ -17,7 +17,6 @@ const AppContext = createContext({
 export const Provider = ({children}) => {
   const [etiquetteRules, setEtiquetteRules] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
-  // console.log(allEvents);
 
   useEffect(() => {
     const loadAppData = async () => {
@@ -25,8 +24,10 @@ export const Provider = ({children}) => {
       setAllEvents(events);
       try {
         const loadedRules = await loadEtiquetteRules();
-        if (loadedRules === null) {
+
+        if (loadedRules.length === 0) {
           const initialRules = await initEtiquetteRules();
+
           setEtiquetteRules(initialRules);
         } else {
           setEtiquetteRules(loadedRules);
@@ -46,16 +47,14 @@ export const Provider = ({children}) => {
     await saveEventToStorage(updatedEvents);
   };
 
-  const deleteEvent=async (id)=>{
-    console.log(id)
-    const updatedEvents=allEvents.filter(event=>event.id!==id)
-    setAllEvents(updatedEvents)
-    await saveEventToStorage(updatedEvents)
-  }
+  const deleteEvent = async id => {
+    // console.log(id)
+    const updatedEvents = allEvents.filter(event => event.id !== id);
+    setAllEvents(updatedEvents);
+    await saveEventToStorage(updatedEvents);
+  };
 
-
-
-  const value = {etiquetteRules, allEvents, saveEvent,deleteEvent};
+  const value = {etiquetteRules, allEvents, saveEvent, deleteEvent};
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 
