@@ -66,8 +66,10 @@ const TabEventsScreen = () => {
         {/* Filter */}
         <ScrollView
           horizontal
+          contentContainerStyle={{gap: 5}}
           showsHorizontalScrollIndicator={false}
-          style={styles.filterContainer}>
+          style={styles.filterContainer}
+        >
           <TouchableOpacity
             style={[
               styles.filterButton,
