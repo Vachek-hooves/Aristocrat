@@ -24,9 +24,9 @@ const TabRulesScreen = () => {
         >
           <Text style={styles.ruleTitle}>{rule.title}</Text>
           <View style={styles.ruleActions}>
-            <TouchableOpacity style={styles.editButton}>
+            {/* <TouchableOpacity style={styles.editButton}>
               <Icon name="pencil" size={20} color="#0A84FF" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <Icon 
               name={isExpanded ? "chevron-up" : "chevron-down"} 
               size={20} 
@@ -43,6 +43,16 @@ const TabRulesScreen = () => {
       </View>
     );
   };
+
+  const GeneralRules = () => {
+    return etiquetteRules.map(rule => (
+      <RuleItem key={rule.id} rule={rule} />
+    ))
+  }
+
+  const CreatedRules = () => {
+    return <Text>Created</Text>
+  }
 
   return (
     <TabLayout>
@@ -80,9 +90,10 @@ const TabRulesScreen = () => {
 
         {/* Rules List */}
         <ScrollView style={styles.rulesList}>
-          {etiquetteRules.map(rule => (
+          {activeTab === 'General' ? GeneralRules() : CreatedRules()}
+          {/* {etiquetteRules.map(rule => (
             <RuleItem key={rule.id} rule={rule} />
-          ))}
+          ))} */}
         </ScrollView>
       </View>
     </TabLayout>
