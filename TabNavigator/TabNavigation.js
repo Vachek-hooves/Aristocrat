@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     width: 200,
     // height: 30,
     padding: 10,
-    borderRadius: '70%',
+    borderRadius: '80%',
   },
 });
 
