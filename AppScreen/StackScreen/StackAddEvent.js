@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Calendar} from 'react-native-calendars';
 import {useNavigation} from '@react-navigation/native';
 import {useAppContext} from '../../appStore/context';
+import TimePicker from '../../components/UI/TimePicker';
 
 const StackAddEvent = ({route}) => {
   const {eventType} = route.params;
@@ -24,18 +25,22 @@ const StackAddEvent = ({route}) => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [location, setLocation] = useState('');
-  const [dressCode, setDressCode] = useState('');
   const [description, setDescription] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
 
   const handleDateSelect = (day) => {
-    setDate(day.dateString);
+    setDate(date.toLocaleDateString());
+    // setDate(day.dateString);
     setShowCalendar(false);
+  };
+
+  const handleTimeSelect = (selectedTime) => {
+    setTime(selectedTime);
   };
 
   const handleSubmit = () => {
     Keyboard.dismiss();
-        if (!title || !date || !time || !location || !dressCode || !description) {
+        if (!title || !date || !time || !location || !description) {
       Alert.alert('Error', 'Please fill in all fields');
       return;
     }
@@ -46,7 +51,6 @@ const StackAddEvent = ({route}) => {
       date: date,
       time: time,
       location: location,
-      dressCode: dressCode,
       description: description,
     };
    
@@ -54,6 +58,8 @@ const StackAddEvent = ({route}) => {
     saveEvent(formData);
     navigation.navigate('TabNavigation', { screen: 'TabEventsScreen' });
   };
+
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -105,16 +111,7 @@ const StackAddEvent = ({route}) => {
           </TouchableOpacity>
 
           <View style={styles.inputWrapper}>
-            <TextInput
-              style={styles.input}
-              placeholder="20:00"
-              placeholderTextColor="#8E8E93"
-              value={time}
-              onChangeText={setTime}
-              editable={true}
-              returnKeyType="done"
-              onSubmitEditing={Keyboard.dismiss}
-            />
+            <TimePicker onTimeSelect={handleTimeSelect} />
           </View>
 
           <View style={styles.inputWrapper}>
@@ -135,8 +132,8 @@ const StackAddEvent = ({route}) => {
               style={styles.input}
               placeholder="Dress Code"
               placeholderTextColor="#8E8E93"
-              value={dressCode}
-              onChangeText={setDressCode}
+              value={description}
+              onChangeText={setDescription}
               editable={true}
               returnKeyType="done"
               onSubmitEditing={Keyboard.dismiss}
