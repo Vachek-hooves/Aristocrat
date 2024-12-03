@@ -5,23 +5,32 @@ import {
   loadEventsFromStorage,
   createNewEvent,
   saveEventToStorage,
+  createNewRule,
+  saveCreatedRuleToStorage,
+  loadCreatedRulesFromStorage,
 } from './utils';
 
 const AppContext = createContext({
   etiquetteRules: [],
   allEvents: [],
+  createdRules: [],
   saveEvent: () => {},
   deleteEvent: () => {},
+  addCreatedRule: () => {},
+  saveCreatedRule: () => {},
 });
 
 export const Provider = ({children}) => {
   const [etiquetteRules, setEtiquetteRules] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
+  const [createdRules, setCreatedRules] = useState([]);
 
   useEffect(() => {
     const loadAppData = async () => {
       const events = await loadEventsFromStorage();
       setAllEvents(events);
+      const createdRules = await loadCreatedRulesFromStorage();
+      setCreatedRules(createdRules);
       try {
         const loadedRules = await loadEtiquetteRules();
         if (loadedRules.length === 0) {
@@ -52,7 +61,27 @@ export const Provider = ({children}) => {
     await saveEventToStorage(updatedEvents);
   };
 
-  const value = {etiquetteRules, allEvents, saveEvent, deleteEvent};
+  const addCreatedRule = async rule => {
+    const updatedRules = createNewRule(rule, createdRules);
+    setCreatedRules(updatedRules);
+    await saveCreatedRuleToStorage(updatedRules);
+  };
+
+  const saveCreatedRule = async rule => {
+    const updatedRules = createNewRule(rule, createdRules);
+    setCreatedRules(updatedRules);
+    await saveCreatedRuleToStorage(updatedRules);
+  };
+
+  const value = {
+    etiquetteRules,
+    allEvents,
+    createdRules,
+    saveEvent,
+    deleteEvent,
+    addCreatedRule,
+    saveCreatedRule,
+  };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 

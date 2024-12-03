@@ -1,101 +1,103 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import TabLayout from '../../components/layout/TabLayout';
-import { useAppContext } from '../../appStore/context';
+import {useAppContext} from '../../appStore/context';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const TabRulesScreen = () => {
-  const { etiquetteRules } = useAppContext();
+const TabRulesScreen = ({navigation}) => {
+  const {etiquetteRules, createdRules} = useAppContext();
   const [activeTab, setActiveTab] = useState('General'); // 'General' or 'Created'
   const [expandedRuleId, setExpandedRuleId] = useState(null);
+  console.log(createdRules);
 
-  const toggleRule = (id) => {
+  const toggleRule = id => {
     setExpandedRuleId(expandedRuleId === id ? null : id);
   };
 
-  const RuleItem = ({ rule }) => {
+  const RuleItem = ({rule}) => {
     const isExpanded = expandedRuleId === rule.id;
 
     return (
       <View style={styles.ruleItem}>
-        <TouchableOpacity 
-          style={styles.ruleHeader} 
-          onPress={() => toggleRule(rule.id)}
-        >
+        <TouchableOpacity
+          style={styles.ruleHeader}
+          onPress={() => toggleRule(rule.id)}>
           <Text style={styles.ruleTitle}>{rule.title}</Text>
           <View style={styles.ruleActions}>
             {/* <TouchableOpacity style={styles.editButton}>
               <Icon name="pencil" size={20} color="#0A84FF" />
             </TouchableOpacity> */}
-            <Icon 
-              name={isExpanded ? "chevron-up" : "chevron-down"} 
-              size={20} 
-              color="#8E8E93" 
+            <Icon
+              name={isExpanded ? 'chevron-up' : 'chevron-down'}
+              size={20}
+              color="#8E8E93"
             />
           </View>
         </TouchableOpacity>
-        
-        {isExpanded && (
-          <Text style={styles.ruleContent}>
-            {rule.rule}
-          </Text>
-        )}
+
+        {isExpanded && <Text style={styles.ruleContent}>{rule.rule}</Text>}
       </View>
     );
   };
 
   const GeneralRules = () => {
-    return etiquetteRules.map(rule => (
-      <RuleItem key={rule.id} rule={rule} />
-    ))
-  }
+    return etiquetteRules.map(rule => <RuleItem key={rule.id} rule={rule} />);
+  };
 
   const CreatedRules = () => {
-    return <Text>Created</Text>
-  }
+    return createdRules.length > 0 ? (
+      createdRules.map(rule => <RuleItem key={rule.id} rule={rule} />)
+    ) : (
+      <Text style={{color: '#FFFFFF', fontSize: 24, textAlign: 'center'}}>
+        No created rules
+      </Text>
+    );
+  };
 
   return (
     <TabLayout>
       <View style={styles.container}>
         <Text style={styles.title}>Etiquette rules</Text>
-        
+
         {/* Tab Switcher */}
         <View style={styles.tabContainer}>
-          <TouchableOpacity 
-            style={[
-              styles.tab, 
-              activeTab === 'Created' && styles.activeTab
-            ]}
-            onPress={() => setActiveTab('Created')}
-          >
-            <Text style={[
-              styles.tabText,
-              activeTab === 'Created' && styles.activeTabText
-            ]}>Created</Text>
+          <TouchableOpacity
+            style={[styles.tab, activeTab === 'Created' && styles.activeTab]}
+            onPress={() => setActiveTab('Created')}>
+            <Text
+              style={[
+                styles.tabText,
+                activeTab === 'Created' && styles.activeTabText,
+              ]}>
+              Created
+            </Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={[
-              styles.tab, 
-              activeTab === 'General' && styles.activeTab
-            ]}
-            onPress={() => setActiveTab('General')}
-          >
-            <Text style={[
-              styles.tabText,
-              activeTab === 'General' && styles.activeTabText
-            ]}>General</Text>
+
+          <TouchableOpacity
+            style={[styles.tab, activeTab === 'General' && styles.activeTab]}
+            onPress={() => setActiveTab('General')}>
+            <Text
+              style={[
+                styles.tabText,
+                activeTab === 'General' && styles.activeTabText,
+              ]}>
+              General
+            </Text>
           </TouchableOpacity>
         </View>
 
         {/* Rules List */}
         <ScrollView style={styles.rulesList}>
           {activeTab === 'General' ? GeneralRules() : CreatedRules()}
-          {/* {etiquetteRules.map(rule => (
-            <RuleItem key={rule.id} rule={rule} />
-          ))} */}
         </ScrollView>
       </View>
+      <View style={{height: 90}} />
     </TabLayout>
   );
 };
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
   ruleItem: {
     backgroundColor: '#1C1C1E',
     borderRadius: 12,
-    marginBottom: 10,
+    marginBottom: 12,
     overflow: 'hidden',
   },
   ruleHeader: {
@@ -151,7 +153,7 @@ const styles = StyleSheet.create({
   },
   ruleTitle: {
     color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: 20,
     flex: 1,
   },
   ruleActions: {
@@ -164,10 +166,22 @@ const styles = StyleSheet.create({
   },
   ruleContent: {
     color: '#FFFFFF',
-    fontSize: 14,
+    fontSize: 16,
     paddingHorizontal: 16,
     paddingBottom: 16,
     lineHeight: 20,
+  },
+  createRuleBtn: {
+    backgroundColor: '#0A84FF',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  createRuleBtnText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

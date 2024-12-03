@@ -24,6 +24,8 @@ const AddButton = ({focused, navigation, currentTab}) => {
       case 'TabEventsScreen':
         navigation.navigate('StackCreateEvent');
         break;
+        case 'TabRulesScreen':
+          navigation.navigate('StackCreateRule')
       default:
         // Optional: handle default case or show alert
         break;
