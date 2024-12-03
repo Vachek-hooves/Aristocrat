@@ -32,7 +32,7 @@ const StackCreateEvent = () => {
     if (selectedEvent) {
       // Navigate to next screen with selected event
       console.log('Selected event:', selectedEvent);
-      // navigation.navigate('StackAddEvent', {eventType: selectedEvent});
+      navigation.navigate('StackAddEvent', {eventType: selectedEvent});
       // navigation.navigate('NextScreen', { eventType: selectedEvent });
     }
   };

@@ -1,14 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import {StyleSheet, Text, View} from 'react-native';
+import { colors } from '../../constants/color';
 
-const StackLaout = () => {
+const StackLaout = ({children}) => {
   return (
-    <View>
-      <Text>StackLaout</Text>
+    <View style={styles.container}>
+      {children}
     </View>
   )
 }
 
 export default StackLaout
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.main,
+  },
+});
