@@ -59,6 +59,7 @@ const TabEventsScreen = () => {
           </TouchableOpacity>
         </View>
 
+        {/* Filter */}
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -95,10 +96,12 @@ const TabEventsScreen = () => {
           ))}
         </ScrollView>
 
+        {/* Section */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>{getSectionTitle()}</Text>
         </View>
 
+        {/* Events */}
         <ScrollView style={styles.eventsList}>
           {filteredEvents.map(event => (
             <TouchableOpacity
