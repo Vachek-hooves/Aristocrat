@@ -16,7 +16,8 @@ import {Calendar} from 'react-native-calendars';
 import {useNavigation} from '@react-navigation/native';
 import {useAppContext} from '../../appStore/context';
 
-const StackAddEvent = () => {
+const StackAddEvent = ({route}) => {
+  const {eventType} = route.params;
   const navigation = useNavigation();
   const {saveEvent} = useAppContext();
   const [title, setTitle] = useState('');
@@ -40,13 +41,14 @@ const StackAddEvent = () => {
     }
     const formData = {
       id: Date.now().toString(),
-      title,
-      date,
-      time,
-      location,
-      type,
-      description,
+      title: title,
+      type: eventType,
+      date: date,
+      time: time,
+      location: location,
+      description: description,
     };
+   
 
     saveEvent(formData);
     navigation.navigate('TabNavigation', { screen: 'TabEventsScreen' });
