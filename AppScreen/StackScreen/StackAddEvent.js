@@ -79,7 +79,7 @@ const StackAddEvent = ({route}) => {
           <View style={styles.inputWrapper}>
             <TextInput
               style={styles.input}
-              placeholder="Title"
+              placeholder="Event Name"
               placeholderTextColor="#8E8E93"
               value={title}
               onChangeText={setTitle}
