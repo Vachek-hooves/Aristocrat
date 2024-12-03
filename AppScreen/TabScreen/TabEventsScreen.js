@@ -10,6 +10,7 @@ import TabLayout from '../../components/layout/TabLayout';
 import {useAppContext} from '../../appStore/context';
 import {Events} from '../../data/events';
 import Icon from 'react-native-vector-icons/Ionicons';
+import NoEvents from '../../components/TabEventsComponents/NoEvents';
 
 const TabEventsScreen = () => {
   const {allEvents} = useAppContext();
@@ -103,8 +104,11 @@ const TabEventsScreen = () => {
 
         {/* Events */}
         <ScrollView style={styles.eventsList}>
-          {filteredEvents.map(event => (
-            <TouchableOpacity
+          {filteredEvents.length === 0 ? (
+            <NoEvents />
+          ) : (
+            filteredEvents.map(event => (
+              <TouchableOpacity
               key={event.id}
               style={styles.eventCard}
               onPress={() => toggleEventExpansion(event.id)}>
@@ -137,13 +141,14 @@ const TabEventsScreen = () => {
                     <Text style={styles.detailLabel}>Dresscode</Text>
                     <Text style={styles.detailValue}>{event.type}</Text>
                   </View>
-                  <TouchableOpacity style={styles.rulesButton}>
+                  {/* <TouchableOpacity style={styles.rulesButton}>
                     <Text style={styles.rulesButtonText}>Check rules</Text>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
               )}
-            </TouchableOpacity>
-          ))}
+              </TouchableOpacity>
+            ))
+          )}
         </ScrollView>
       </View>
     </TabLayout>
