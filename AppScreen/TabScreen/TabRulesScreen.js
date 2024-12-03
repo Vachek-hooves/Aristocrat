@@ -8,51 +8,22 @@ import {
 } from 'react-native';
 import TabLayout from '../../components/layout/TabLayout';
 import {useAppContext} from '../../appStore/context';
-import Icon from 'react-native-vector-icons/Ionicons';
+import GeneralRule from '../../components/TabRulesComponent/GeneralRule';
+import CreatedRule from '../../components/TabRulesComponent/CreatedRule';
 
 const TabRulesScreen = ({navigation}) => {
   const {etiquetteRules, createdRules} = useAppContext();
   const [activeTab, setActiveTab] = useState('General'); // 'General' or 'Created'
-  const [expandedRuleId, setExpandedRuleId] = useState(null);
-  console.log(createdRules);
-
-  const toggleRule = id => {
-    setExpandedRuleId(expandedRuleId === id ? null : id);
-  };
-
-  const RuleItem = ({rule}) => {
-    const isExpanded = expandedRuleId === rule.id;
-
-    return (
-      <View style={styles.ruleItem}>
-        <TouchableOpacity
-          style={styles.ruleHeader}
-          onPress={() => toggleRule(rule.id)}>
-          <Text style={styles.ruleTitle}>{rule.title}</Text>
-          <View style={styles.ruleActions}>
-            {/* <TouchableOpacity style={styles.editButton}>
-              <Icon name="pencil" size={20} color="#0A84FF" />
-            </TouchableOpacity> */}
-            <Icon
-              name={isExpanded ? 'chevron-up' : 'chevron-down'}
-              size={20}
-              color="#8E8E93"
-            />
-          </View>
-        </TouchableOpacity>
-
-        {isExpanded && <Text style={styles.ruleContent}>{rule.rule}</Text>}
-      </View>
-    );
-  };
 
   const GeneralRules = () => {
-    return etiquetteRules.map(rule => <RuleItem key={rule.id} rule={rule} />);
+    return etiquetteRules.map(rule => (
+      <GeneralRule key={rule.id} rule={rule} />
+    ));
   };
 
   const CreatedRules = () => {
     return createdRules.length > 0 ? (
-      createdRules.map(rule => <RuleItem key={rule.id} rule={rule} />)
+      createdRules.map(rule => <CreatedRule key={rule.id} rule={rule} />)
     ) : (
       <Text style={{color: '#FFFFFF', fontSize: 24, textAlign: 'center'}}>
         No created rules
@@ -93,7 +64,9 @@ const TabRulesScreen = ({navigation}) => {
         </View>
 
         {/* Rules List */}
-        <ScrollView style={styles.rulesList}>
+        <ScrollView
+          style={styles.rulesList}
+          showsVerticalScrollIndicator={false}>
           {activeTab === 'General' ? GeneralRules() : CreatedRules()}
         </ScrollView>
       </View>
@@ -138,38 +111,6 @@ const styles = StyleSheet.create({
   },
   rulesList: {
     flex: 1,
-  },
-  ruleItem: {
-    backgroundColor: '#1C1C1E',
-    borderRadius: 12,
-    marginBottom: 12,
-    overflow: 'hidden',
-  },
-  ruleHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-  },
-  ruleTitle: {
-    color: '#FFFFFF',
-    fontSize: 20,
-    flex: 1,
-  },
-  ruleActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  editButton: {
-    padding: 4,
-  },
-  ruleContent: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-    lineHeight: 20,
   },
   createRuleBtn: {
     backgroundColor: '#0A84FF',
