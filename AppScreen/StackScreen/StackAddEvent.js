@@ -24,7 +24,7 @@ const StackAddEvent = ({route}) => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [location, setLocation] = useState('');
-  const [type, setType] = useState('');
+  const [dressCode, setDressCode] = useState('');
   const [description, setDescription] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -35,17 +35,18 @@ const StackAddEvent = ({route}) => {
 
   const handleSubmit = () => {
     Keyboard.dismiss();
-    if (!title || !date || !time || !location || !type || !description) {
+        if (!title || !date || !time || !location || !dressCode || !description) {
       Alert.alert('Error', 'Please fill in all fields');
       return;
     }
     const formData = {
       id: Date.now().toString(),
-      title: title,
       type: eventType,
+      title: title,
       date: date,
       time: time,
       location: location,
+      dressCode: dressCode,
       description: description,
     };
    
@@ -78,7 +79,7 @@ const StackAddEvent = ({route}) => {
           <View style={styles.inputWrapper}>
             <TextInput
               style={styles.input}
-              placeholder="Type"
+              placeholder="Title"
               placeholderTextColor="#8E8E93"
               value={title}
               onChangeText={setTitle}
@@ -134,8 +135,8 @@ const StackAddEvent = ({route}) => {
               style={styles.input}
               placeholder="Dress Code"
               placeholderTextColor="#8E8E93"
-              value={type}
-              onChangeText={setType}
+              value={dressCode}
+              onChangeText={setDressCode}
               editable={true}
               returnKeyType="done"
               onSubmitEditing={Keyboard.dismiss}

@@ -47,7 +47,7 @@ const TabEventsScreen = () => {
     return `${selectedType}s`;
   };
 
-  console.log(filteredEvents);
+  console.log(filteredEvents,'filteredEvents');
 
   return (
     <TabLayout>
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   eventsList: {
-    flex: 1,
+    // flex: 1,
   },
   eventCard: {
     backgroundColor: '#1C1C1E',
