@@ -1,16 +1,27 @@
 import {createContext, useContext, useState, useEffect} from 'react';
-import {initEtiquetteRules, loadEtiquetteRules} from './utils';
+import {
+  initEtiquetteRules,
+  loadEtiquetteRules,
+  loadEventsFromStorage,
+  createNewEvent,
+  saveEventToStorage,
+} from './utils';
 
 const AppContext = createContext({
   etiquetteRules: [],
+  allEvents: [],
+  saveEvent: () => {},
 });
 
 export const Provider = ({children}) => {
   const [etiquetteRules, setEtiquetteRules] = useState([]);
-  
+  const [allEvents, setAllEvents] = useState([]);
+  // console.log(allEvents);
 
   useEffect(() => {
     const loadAppData = async () => {
+      const events = await loadEventsFromStorage();
+      setAllEvents(events);
       try {
         const loadedRules = await loadEtiquetteRules();
         if (loadedRules === null) {
@@ -24,11 +35,17 @@ export const Provider = ({children}) => {
         setEtiquetteRules([]);
       }
     };
-    
+
     loadAppData();
   }, []);
 
-  const value = {etiquetteRules};
+  const saveEvent = async event => {
+    const updatedEvents = createNewEvent(event, allEvents);
+    setAllEvents(updatedEvents);
+    await saveEventToStorage(updatedEvents);
+  };
+
+  const value = {etiquetteRules, allEvents, saveEvent};
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 

@@ -16,7 +16,7 @@ const WelcomeScreen = ({navigation}) => {
 
   const thisWelcomeData = welcomeData[currentIndex];
 
-  console.log(thisWelcomeData);
+  // console.log(thisWelcomeData);
 
   return (
     <View style={styles.container}>

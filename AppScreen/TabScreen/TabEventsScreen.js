@@ -1,8 +1,12 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
 import TabLayout from '../../components/layout/TabLayout';
+import {useAppContext} from '../../appStore/context';
 
 const TabEventsScreen = () => {
+  const {allEvents} = useAppContext();
+  console.log(allEvents);
+
+  
   return <TabLayout></TabLayout>;
 };
 

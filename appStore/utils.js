@@ -2,6 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {EtiquetteRules} from '../data/rules';
 
 const STORAGE_KEY = 'etiquetteRules';
+const EVENTS_KEY = 'events';
+
 
 export const initEtiquetteRules = async () => {
   try {
@@ -20,5 +22,29 @@ export const loadEtiquetteRules = async () => {
   } catch (error) {
     console.error('Failed to load etiquette rules:', error);
     return null;
+  }
+};
+
+
+export const createNewEvent = (event, allEvents) => {
+  return [...allEvents, event];
+};
+
+export const saveEventToStorage = async (events) => {
+  try {
+    await AsyncStorage.setItem(EVENTS_KEY, JSON.stringify(events));
+  } catch (error) {
+    console.error('Failed to save events:', error);
+  }
+};
+
+export const loadEventsFromStorage = async () => {
+  try {
+    const savedEvents = await AsyncStorage.getItem(EVENTS_KEY);
+    console.log(savedEvents);
+    return savedEvents ? JSON.parse(savedEvents) : [];
+  } catch (error) {
+    console.error('Failed to load events:', error);
+    return [];
   }
 };

@@ -9,13 +9,16 @@ import {
   Modal,
   ScrollView,
   Keyboard,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Calendar} from 'react-native-calendars';
 import {useNavigation} from '@react-navigation/native';
+import {useAppContext} from '../../appStore/context';
 
 const StackAddEvent = () => {
   const navigation = useNavigation();
+  const {saveEvent} = useAppContext();
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
@@ -31,8 +34,12 @@ const StackAddEvent = () => {
 
   const handleSubmit = () => {
     Keyboard.dismiss();
+    if (!title || !date || !time || !location || !type || !description) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
     const formData = {
-      id: Date.now().toString().slice(-6),
+      id: Date.now().toString(),
       title,
       date,
       time,
@@ -40,7 +47,9 @@ const StackAddEvent = () => {
       type,
       description,
     };
-    console.log('Form Data:', formData);
+
+    saveEvent(formData);
+    navigation.navigate('TabNavigation', { screen: 'TabEventsScreen' });
   };
 
   return (
