@@ -26,11 +26,12 @@ const StackAddEvent = ({route}) => {
   const [time, setTime] = useState('');
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
+  const [dressCode, setDressCode] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
 
   const handleDateSelect = (day) => {
-    setDate(date.toLocaleDateString());
-    // setDate(day.dateString);
+    // setDate(date.toLocaleDateString());
+    setDate(day.dateString);
     setShowCalendar(false);
   };
 
@@ -51,6 +52,7 @@ const StackAddEvent = ({route}) => {
       date: date,
       time: time,
       location: location,
+      dressCode: dressCode,
       description: description,
     };
    
@@ -132,8 +134,8 @@ const StackAddEvent = ({route}) => {
               style={styles.input}
               placeholder="Dress Code"
               placeholderTextColor="#8E8E93"
-              value={description}
-              onChangeText={setDescription}
+              value={dressCode}
+              onChangeText={setDressCode}
               editable={true}
               returnKeyType="done"
               onSubmitEditing={Keyboard.dismiss}
