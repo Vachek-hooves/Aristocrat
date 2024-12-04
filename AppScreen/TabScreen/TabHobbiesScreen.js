@@ -138,25 +138,8 @@ const TabHobbiesScreen = () => {
                 <Text style={styles.eventDescription}>{hobbie.description}</Text>
                 {expandedEventId === hobbie.id && (
                   <View style={styles.eventDetails}>
-                    <View style={styles.detailRow}>
-                      <Text style={styles.detailLabel}>Date</Text>
-                      <Text style={styles.detailValue}>{hobbie.date}</Text>
-                    </View>
-                    <View style={styles.detailRow}>
-                      <Text style={styles.detailLabel}>Time</Text>
-                      <Text style={styles.detailValue}>{hobbie.time}</Text>
-                    </View>
-                    <View style={styles.detailRow}>
-                      <Text style={styles.detailLabel}>Place</Text>
-                      <Text style={styles.detailValue}>{hobbie.location}</Text>
-                    </View>
-                    <View style={styles.detailRow}>
-                      <Text style={styles.detailLabel}>Dresscode</Text>
-                      <Text style={styles.detailValue}>{hobbie.type}</Text>
-                    </View>
-                    {/* <TouchableOpacity style={styles.rulesButton}>
-                    <Text style={styles.rulesButtonText}>Check rules</Text>
-                  </TouchableOpacity> */}
+                    {/* <View><Text>{hobbie.description}</Text></View> */}
+                   
                     <TouchableOpacity
                       style={styles.rulesButton}
                       onPress={() => handleDeleteEvent(hobbie.id)}>
@@ -167,6 +150,7 @@ const TabHobbiesScreen = () => {
               </TouchableOpacity>
             ))
           )}
+        <View style={{height:100}}/>
         </ScrollView>
       </View>
     </TabLayout>
@@ -219,7 +203,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   eventsList: {
-    // flex: 1,
+    flex: 1,
   },
   eventCard: {
     backgroundColor: '#1C1C1E',
