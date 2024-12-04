@@ -14,17 +14,19 @@ const AppContext = createContext({
   etiquetteRules: [],
   allEvents: [],
   createdRules: [],
+  hobbies: [],
   saveEvent: () => {},
   deleteEvent: () => {},
   addCreatedRule: () => {},
   saveCreatedRule: () => {},
-  deleteRule:()=>{}
+  deleteRule: () => {},
 });
 
 export const Provider = ({children}) => {
   const [etiquetteRules, setEtiquetteRules] = useState([]);
   const [allEvents, setAllEvents] = useState([]);
   const [createdRules, setCreatedRules] = useState([]);
+  const [hobbies, setHobbies] = useState([]);
 
   useEffect(() => {
     const loadAppData = async () => {
@@ -89,6 +91,7 @@ export const Provider = ({children}) => {
     addCreatedRule,
     saveCreatedRule,
     deleteRule,
+    hobbies,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

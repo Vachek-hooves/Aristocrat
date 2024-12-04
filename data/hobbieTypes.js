@@ -1,0 +1,16 @@
+export const Hobbies = [
+  {id: 2, title: 'Music'},
+  {id: 3, title: 'Sport'},
+  {id: 5, title: 'Travel'},
+  {id: 6, title: 'Food'},
+  {id: 7, title: 'Fashion'},
+  {id: 4, title: 'Art'},
+  {id: 8, title: 'Books'},
+  {id: 9, title: 'Movies'},
+  {id: 10, title: 'Games'},
+  {id: 11, title: 'Technology'},
+  {id: 12, title: 'Science'},
+  {id: 13, title: 'History'},
+  {id: 14, title: 'Art'},
+  {id: 15, title: 'Writing'},
+];
