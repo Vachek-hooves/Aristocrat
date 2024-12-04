@@ -1,8 +1,12 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {colors} from '../../constants/color';
+import { useAppContext } from '../../appStore/context';
+
 
 const CreatedRule = ({rule}) => {
+  const {deleteRule} = useAppContext();
   const [expandedRuleId, setExpandedRuleId] = useState(null);
 
   const toggleRule = id => {
@@ -11,6 +15,10 @@ const CreatedRule = ({rule}) => {
 
   const isExpanded = expandedRuleId === rule.id;
 
+  const handleDeleteRules = () => {
+    deleteRule(rule.id);
+  };
+
   return (
     <View style={styles.ruleItem}>
       <TouchableOpacity
@@ -18,8 +26,10 @@ const CreatedRule = ({rule}) => {
         onPress={() => toggleRule(rule.id)}>
         <Text style={styles.ruleTitle}>{rule.title}</Text>
         <View style={styles.ruleActions}>
-          <TouchableOpacity style={styles.editButton}>
-            <Icon name="pencil" size={20} color="#0A84FF" />
+          <TouchableOpacity
+            style={styles.editButton}
+            onPress={handleDeleteRules}>
+            <Icon name="trash" size={20} color={colors.red} />
           </TouchableOpacity>
           <Icon
             name={isExpanded ? 'chevron-up' : 'chevron-down'}

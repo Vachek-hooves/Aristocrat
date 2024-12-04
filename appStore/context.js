@@ -18,6 +18,7 @@ const AppContext = createContext({
   deleteEvent: () => {},
   addCreatedRule: () => {},
   saveCreatedRule: () => {},
+  deleteRule:()=>{}
 });
 
 export const Provider = ({children}) => {
@@ -73,6 +74,12 @@ export const Provider = ({children}) => {
     await saveCreatedRuleToStorage(updatedRules);
   };
 
+  const deleteRule = async ruleId => {
+    const updatedRules = createdRules.filter(rule => rule.id !== ruleId);
+    setCreatedRules(updatedRules);
+    await saveCreatedRuleToStorage(updatedRules);
+  };
+
   const value = {
     etiquetteRules,
     allEvents,
@@ -81,6 +88,7 @@ export const Provider = ({children}) => {
     deleteEvent,
     addCreatedRule,
     saveCreatedRule,
+    deleteRule,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
