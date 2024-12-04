@@ -138,11 +138,11 @@ const TabHobbiesScreen = () => {
                     color="#8E8E93"
                   />
                 </View>
-                <Text style={styles.eventDescription}>{hobbie.description}</Text>
                 {expandedEventId === hobbie.id && (
                   <View style={styles.eventDetails}>
+                    <Text style={styles.eventDescription}>{hobbie.description}</Text>
                     {/* <View><Text>{hobbie.description}</Text></View> */}
-                   
+                  
                     <TouchableOpacity
                       style={styles.rulesButton}
                       onPress={() => handleDeleteHobby(hobbie.id)}>
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     borderColor: '#FF2D55',
     padding: 12,
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: 16,
   },
   rulesButtonText: {
     color: '#FF2D55',
