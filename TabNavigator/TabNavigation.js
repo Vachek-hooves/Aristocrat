@@ -99,7 +99,10 @@ const TabNavigation = () => {
               currentTab={currentTab}
             />
           ),
+
+          
         }}
+        listeners={{tabPress: e => e.preventDefault()}}
       />
       <Tab.Screen
         name="TabRulesScreen"

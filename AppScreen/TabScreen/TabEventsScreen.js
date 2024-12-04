@@ -11,6 +11,7 @@ import {useAppContext} from '../../appStore/context';
 import {Events} from '../../data/events';
 import Icon from 'react-native-vector-icons/Ionicons';
 import NoEvents from '../../components/TabEventsComponents/NoEvents';
+import TabHeader from '../../components/Header/TabHeader';
 
 const TabEventsScreen = () => {
   const {allEvents,deleteEvent} = useAppContext();
@@ -56,12 +57,8 @@ const TabEventsScreen = () => {
   return (
     <TabLayout>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Events</Text>
-          <TouchableOpacity>
-            <Text style={styles.dateText}>23 Jan</Text>
-          </TouchableOpacity>
-        </View>
+       
+        <TabHeader title={'Event'}/>
 
         {/* Filter */}
         <ScrollView
@@ -174,21 +171,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     padding: 20,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-  },
-  dateText: {
-    fontSize: 16,
-    color: '#0A84FF',
-  },
+  
   filterContainer: {
     flexDirection: 'row',
     marginBottom: 24,

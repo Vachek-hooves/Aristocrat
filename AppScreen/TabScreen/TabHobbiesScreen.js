@@ -12,14 +12,13 @@ import {useAppContext} from '../../appStore/context';
 import {Hobbies} from '../../data/hobbieTypes';
 import NoEvents from '../../components/TabEventsComponents/NoEvents';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-
+import TabHeader from '../../components/Header/TabHeader';
 
 const getHobbieColor = hobbie => {
   const colors = {
     Music: '#FF9500',
     Sports: '#FF2D55',
-    Travel:'#34A853',
+    Travel: '#34A853',
     Food: '#FFD60A',
     Fashion: '#EF4123',
     Books: '#4F3CC9',
@@ -36,10 +35,10 @@ const getHobbieColor = hobbie => {
 };
 
 const TabHobbiesScreen = () => {
-  const {hobbies,deleteHobby} = useAppContext();
+  const {hobbies, deleteHobby} = useAppContext();
   const [selectedType, setSelectedType] = useState('All');
   const [expandedEventId, setExpandedEventId] = useState(null);
-  console.log(hobbies)
+  console.log(hobbies);
 
   const toggleEventExpansion = id => {
     setExpandedEventId(expandedEventId === id ? null : id);
@@ -57,19 +56,13 @@ const TabHobbiesScreen = () => {
 
   const handleDeleteHobby = id => {
     deleteHobby(id);
-    
   };
 
   return (
     <TabLayout>
       <View style={styles.mainContainer}>
         <View style={styles.headerSection}>
-          <View style={styles.header}>
-            <Text style={styles.title}>Hobbies</Text>
-            <TouchableOpacity>
-              <Text style={styles.dateText}>23 Jan</Text>
-            </TouchableOpacity>
-          </View>
+          <TabHeader title={'Hobbie'} />
 
           <ScrollView
             horizontal
@@ -113,11 +106,10 @@ const TabHobbiesScreen = () => {
           </View>
         </View>
 
-        <ScrollView 
+        <ScrollView
           style={styles.hobbiesList}
           contentContainerStyle={styles.hobbiesListContent}
-          showsVerticalScrollIndicator={false}
-        >
+          showsVerticalScrollIndicator={false}>
           {filteredHobbies.length === 0 ? (
             <NoEvents />
           ) : (
@@ -140,9 +132,11 @@ const TabHobbiesScreen = () => {
                 </View>
                 {expandedEventId === hobbie.id && (
                   <View style={styles.eventDetails}>
-                    <Text style={styles.eventDescription}>{hobbie.description}</Text>
+                    <Text style={styles.eventDescription}>
+                      {hobbie.description}
+                    </Text>
                     {/* <View><Text>{hobbie.description}</Text></View> */}
-                  
+
                     <TouchableOpacity
                       style={styles.rulesButton}
                       onPress={() => handleDeleteHobby(hobbie.id)}>
@@ -170,21 +164,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 0,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-  },
-  dateText: {
-    fontSize: 16,
-    color: '#0A84FF',
-  },
+ 
   filterContainer: {
     flexDirection: 'row',
     marginBottom: 24,
