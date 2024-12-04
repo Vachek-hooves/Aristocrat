@@ -62,60 +62,62 @@ const TabHobbiesScreen = () => {
 
   return (
     <TabLayout>
-      <View style={styles.container}>
-        <StackHeader />
+      <View style={styles.mainContainer}>
+        <View style={styles.headerSection}>
+          <View style={styles.header}>
+            <Text style={styles.title}>Hobbies</Text>
+            <TouchableOpacity>
+              <Text style={styles.dateText}>23 Jan</Text>
+            </TouchableOpacity>
+          </View>
 
-        <ScrollView
-          horizontal
-          contentContainerStyle={{
-            gap: 5,
-            borderBottomWidth: 1,
-            borderBottomColor: '#007AFF',
-            paddingBottom: 10,
-          
-          }}
-          showsHorizontalScrollIndicator={false}
-          style={styles.filterContainer}>
-          <TouchableOpacity
-            style={[
-              styles.filterButton,
-              {borderColor: '#FFFFFF'},
-              selectedType === 'All' && {backgroundColor: '#FFFFFF'},
-            ]}
-            onPress={() => setSelectedType('All')}>
-            <Text
-              style={[
-                styles.filterText,
-                selectedType === 'All' && {color: '#000000'},
-              ]}>
-              All
-            </Text>
-          </TouchableOpacity>
-
-          {Hobbies.map(event => (
+          <ScrollView
+            horizontal
+            contentContainerStyle={{gap: 5}}
+            showsHorizontalScrollIndicator={false}
+            style={styles.filterContainer}>
             <TouchableOpacity
-              key={event.id}
               style={[
                 styles.filterButton,
-                {borderColor: getHobbieColor(event.title)},
-                selectedType === event.title && {
-                  backgroundColor: getHobbieColor(event.title),
-                },
+                {borderColor: '#FFFFFF'},
+                selectedType === 'All' && {backgroundColor: '#FFFFFF'},
               ]}
-              onPress={() => setSelectedType(event.title)}>
-              <Text style={styles.filterText}>{event.title}</Text>
+              onPress={() => setSelectedType('All')}>
+              <Text
+                style={[
+                  styles.filterText,
+                  selectedType === 'All' && {color: '#000000'},
+                ]}>
+                All
+              </Text>
             </TouchableOpacity>
-          ))}
-        </ScrollView>
 
-        {/* Section */}
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>{getSectionTitle()}</Text>
+            {Hobbies.map(event => (
+              <TouchableOpacity
+                key={event.id}
+                style={[
+                  styles.filterButton,
+                  {borderColor: getHobbieColor(event.title)},
+                  selectedType === event.title && {
+                    backgroundColor: getHobbieColor(event.title),
+                  },
+                ]}
+                onPress={() => setSelectedType(event.title)}>
+                <Text style={styles.filterText}>{event.title}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>{getSectionTitle()}</Text>
+          </View>
         </View>
 
-        {/* Hobbies */}
-   
-        <ScrollView style={styles.eventsList}>
+        <ScrollView 
+          style={styles.hobbiesList}
+          contentContainerStyle={styles.hobbiesListContent}
+          showsVerticalScrollIndicator={false}
+        >
           {filteredHobbies.length === 0 ? (
             <NoEvents />
           ) : (
@@ -151,7 +153,7 @@ const TabHobbiesScreen = () => {
               </TouchableOpacity>
             ))
           )}
-        <View style={{height:100}}/>
+          <View style={styles.bottomSpacing} />
         </ScrollView>
       </View>
     </TabLayout>
@@ -161,9 +163,12 @@ const TabHobbiesScreen = () => {
 export default TabHobbiesScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
+  mainContainer: {
+    flex: 1,
+  },
+  headerSection: {
     padding: 20,
+    paddingBottom: 0,
   },
   header: {
     flexDirection: 'row',
@@ -203,9 +208,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
-  eventsList: {
-    // flex: 1,
-    
+  hobbiesList: {
+    flex: 1,
+  },
+  hobbiesListContent: {
+    padding: 20,
+    paddingTop: 0,
+  },
+  bottomSpacing: {
+    height: 80,
   },
   eventCard: {
     backgroundColor: '#1C1C1E',
