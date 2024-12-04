@@ -57,7 +57,7 @@ const TabHobbiesScreen = () => {
 
   const handleDeleteHobby = id => {
     deleteHobby(id);
-    console.log(id);
+    
   };
 
   return (
