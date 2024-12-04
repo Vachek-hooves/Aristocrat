@@ -187,36 +187,34 @@ const TabProfileScreen = () => {
               <Text style={styles.nameText}>{name}</Text>
             )}
           </View>
-
-          <View style={styles.buttonContainer}>
-            {isEditing ? (
-              <>
-                <TouchableOpacity 
-                  style={styles.editButton} 
-                  onPress={() => {
-                    setTempName(name);
-                    setIsEditing(false);
-                  }}
-                >
-                  <Text style={[styles.editButtonText, { color: '#FF3B30' }]}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                  style={styles.editButton} 
-                  onPress={handleSave}
-                >
-                  <Text style={styles.editButtonText}>Save</Text>
-                </TouchableOpacity>
-              </>
-            ) : (
-              <TouchableOpacity 
-                style={styles.editButton} 
-                onPress={() => setIsEditing(true)}
-              >
-                <Text style={styles.editButtonText}>Edit</Text>
-              </TouchableOpacity>
-            )}
-          </View>
         </View>
+
+        {isEditing ? (
+          <>
+            <TouchableOpacity 
+              style={styles.saveButton} 
+              onPress={handleSave}
+            >
+              <Text style={styles.saveButtonText}>Save</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.cancelButton} 
+              onPress={() => {
+                setTempName(name);
+                setIsEditing(false);
+              }}
+            >
+              <Text style={styles.cancelButtonText}>Cancel</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <TouchableOpacity 
+            style={styles.saveButton} 
+            onPress={() => setIsEditing(true)}
+          >
+            <Text style={styles.saveButtonText}>Edit</Text>
+          </TouchableOpacity>
+        )}
 
         <TouchableOpacity 
           style={styles.deleteButton}
@@ -364,6 +362,32 @@ const styles = StyleSheet.create({
   },
   disabledButton: {
     opacity: 0.5,
+  },
+  saveButton: {
+    backgroundColor: '#0A84FF',
+    borderRadius: 16,
+    padding: 16,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  saveButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  cancelButton: {
+    backgroundColor: '#1C1C1E',
+    borderRadius: 16,
+    padding: 16,
+    marginTop: 10,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#FF3B30',
+  },
+  cancelButtonText: {
+    color: '#FF3B30',
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 
