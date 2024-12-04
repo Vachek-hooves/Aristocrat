@@ -36,9 +36,10 @@ const getHobbieColor = hobbie => {
 };
 
 const TabHobbiesScreen = () => {
-  const {hobbies} = useAppContext();
+  const {hobbies,deleteHobby} = useAppContext();
   const [selectedType, setSelectedType] = useState('All');
   const [expandedEventId, setExpandedEventId] = useState(null);
+  console.log(hobbies)
 
   const toggleEventExpansion = id => {
     setExpandedEventId(expandedEventId === id ? null : id);
@@ -54,8 +55,8 @@ const TabHobbiesScreen = () => {
     return `${selectedType}`;
   };
 
-  const handleDeleteEvent = id => {
-    deleteEvent(id);
+  const handleDeleteHobby = id => {
+    deleteHobby(id);
     console.log(id);
   };
 
@@ -142,7 +143,7 @@ const TabHobbiesScreen = () => {
                    
                     <TouchableOpacity
                       style={styles.rulesButton}
-                      onPress={() => handleDeleteEvent(hobbie.id)}>
+                      onPress={() => handleDeleteHobby(hobbie.id)}>
                       <Text style={styles.rulesButtonText}>Delete</Text>
                     </TouchableOpacity>
                   </View>
@@ -203,7 +204,8 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   eventsList: {
-    flex: 1,
+    // flex: 1,
+    
   },
   eventCard: {
     backgroundColor: '#1C1C1E',

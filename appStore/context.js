@@ -94,6 +94,12 @@ export const Provider = ({children}) => {
     await saveHobbiesToStorage(updatedHobbies);
   };
 
+  const deleteHobby = async id => {
+    const updatedHobbies = hobbies.filter(hobby => hobby.id !== id);
+    setHobbies(updatedHobbies);
+    await saveHobbiesToStorage(updatedHobbies);
+  };
+
   const value = {
     etiquetteRules,
     allEvents,
@@ -105,6 +111,7 @@ export const Provider = ({children}) => {
     deleteRule,
     hobbies,
     addHobby,
+    deleteHobby,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
