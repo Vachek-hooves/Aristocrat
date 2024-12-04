@@ -5,7 +5,7 @@ import {EtiquetteRules} from '../data/rules';
 const STORAGE_KEY = 'etiquetteRules';
 const EVENTS_KEY = 'events';
 const RULES_KEY = 'createdRules';
-
+const HOBBIES_KEY = 'hobbies';
 
 export const initEtiquetteRules = async () => {
   try {
@@ -49,6 +49,16 @@ export const loadCreatedRulesFromStorage = async () => {
   }
 };
 
+export const loadHobbiesFromStorage = async () => {
+  try {
+    const savedHobbies = await AsyncStorage.getItem(HOBBIES_KEY);
+    return savedHobbies ? JSON.parse(savedHobbies) : [];
+  } catch (error) {
+    console.error('Failed to load hobbies:', error);
+    return [];
+  }
+};
+
 export const saveEventToStorage = async (events) => {
   try {
     await AsyncStorage.setItem(EVENTS_KEY, JSON.stringify(events));
@@ -65,6 +75,14 @@ try{
   }
 };
 
+export const saveHobbiesToStorage = async (hobbies) => {
+  try {
+    await AsyncStorage.setItem(HOBBIES_KEY, JSON.stringify(hobbies));
+  } catch (error) {
+    console.error('Failed to save hobbies:', error);
+  }
+};
+
 export const createNewEvent = (event, allEvents) => {
   return [...allEvents, event];
 };
@@ -75,4 +93,8 @@ export const createNewRule = (rule, createdRules) => {
 
 export const createNewCreatedRule = (rule, createdRules) => {
   return [...createdRules, rule];
+};
+
+export const createNewHobby = (hobby, hobbies) => {
+  return [...hobbies, hobby];
 };

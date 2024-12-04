@@ -8,6 +8,7 @@ import {
   WelcomeScreen,
   StackAddEvent,
   StackCreateRule,
+  StackAddHobbie,
 } from './AppScreen/StackScreen';
 import {Provider} from './appStore/context';
 const Stack = createNativeStackNavigator();
@@ -23,6 +24,7 @@ function App() {
           <Stack.Screen name="StackCreateEvent" component={StackCreateEvent} />
           <Stack.Screen name="StackAddEvent" component={StackAddEvent} />
           <Stack.Screen name="StackCreateRule" component={StackCreateRule} />
+          <Stack.Screen name='StackAddHobbie' component={StackAddHobbie}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

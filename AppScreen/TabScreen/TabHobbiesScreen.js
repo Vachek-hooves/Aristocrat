@@ -11,6 +11,9 @@ import StackHeader from '../../components/Header/StackHeader';
 import {useAppContext} from '../../appStore/context';
 import {Hobbies} from '../../data/hobbieTypes';
 import NoEvents from '../../components/TabEventsComponents/NoEvents';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+
 
 const getHobbieColor = hobbie => {
   const colors = {
@@ -44,7 +47,7 @@ const TabHobbiesScreen = () => {
   const filteredHobbies =
     selectedType === 'All'
       ? hobbies
-      : hobbies.filter(hobbie => hobbie.type === selectedType);
+      : hobbies.filter(hobbie => hobbie.type.title === selectedType);
 
   const getSectionTitle = () => {
     if (selectedType === 'All') return 'All Hobbies';

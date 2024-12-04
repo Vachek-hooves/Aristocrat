@@ -19,7 +19,7 @@ const AddButton = ({focused, navigation, currentTab}) => {
   const handlePress = () => {
     switch (currentTab) {
       case 'TabHobbiesScreen':
-        navigation.navigate('StackCreateHobbie');
+        navigation.navigate('StackAddHobbie');
         break;
       case 'TabEventsScreen':
         navigation.navigate('StackCreateEvent');

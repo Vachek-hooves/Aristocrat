@@ -8,6 +8,9 @@ import {
   createNewRule,
   saveCreatedRuleToStorage,
   loadCreatedRulesFromStorage,
+  loadHobbiesFromStorage,
+  createNewHobby,
+  saveHobbiesToStorage,
 } from './utils';
 
 const AppContext = createContext({
@@ -20,6 +23,7 @@ const AppContext = createContext({
   addCreatedRule: () => {},
   saveCreatedRule: () => {},
   deleteRule: () => {},
+  addHobby: () => {},
 });
 
 export const Provider = ({children}) => {
@@ -34,6 +38,8 @@ export const Provider = ({children}) => {
       setAllEvents(events);
       const createdRules = await loadCreatedRulesFromStorage();
       setCreatedRules(createdRules);
+      const hobbies = await loadHobbiesFromStorage();
+      setHobbies(hobbies);
       try {
         const loadedRules = await loadEtiquetteRules();
         if (loadedRules.length === 0) {
@@ -82,6 +88,12 @@ export const Provider = ({children}) => {
     await saveCreatedRuleToStorage(updatedRules);
   };
 
+  const addHobby = async hobby => {
+    const updatedHobbies = createNewHobby(hobby, hobbies);
+    setHobbies(updatedHobbies);
+    await saveHobbiesToStorage(updatedHobbies);
+  };
+
   const value = {
     etiquetteRules,
     allEvents,
@@ -92,6 +104,7 @@ export const Provider = ({children}) => {
     saveCreatedRule,
     deleteRule,
     hobbies,
+    addHobby,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

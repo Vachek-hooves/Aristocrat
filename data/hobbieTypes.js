@@ -13,4 +13,5 @@ export const Hobbies = [
   {id: 13, title: 'History'},
   {id: 14, title: 'Art'},
   {id: 15, title: 'Writing'},
+  {id: 16, title: 'Other'},
 ];
