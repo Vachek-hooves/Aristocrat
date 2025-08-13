@@ -18,7 +18,7 @@ const StackAddHobbie = ({navigation}) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedType, setSelectedType] = useState('');
-  console.log(hobbies);
+  // console.log(hobbies);
 
   const isDisabled = !title || !description || !selectedType;
 
@@ -34,7 +34,7 @@ const StackAddHobbie = ({navigation}) => {
       description,
       type: selectedType,
     };
-    console.log(newHobby);
+    // console.log(newHobby);
     addHobby(newHobby);
     Alert.alert('Success', 'Hobby added successfully');
     setTitle('');

@@ -24,8 +24,8 @@ const AddButton = ({focused, navigation, currentTab}) => {
       case 'TabEventsScreen':
         navigation.navigate('StackCreateEvent');
         break;
-        case 'TabRulesScreen':
-          navigation.navigate('StackCreateRule')
+      case 'TabRulesScreen':
+        navigation.navigate('StackCreateRule');
       default:
         // Optional: handle default case or show alert
         break;
@@ -99,8 +99,6 @@ const TabNavigation = () => {
               currentTab={currentTab}
             />
           ),
-
-          
         }}
         listeners={{tabPress: e => e.preventDefault()}}
       />
@@ -139,7 +137,7 @@ const styles = StyleSheet.create({
     left: 20,
     right: 20,
     elevation: 0,
-    backgroundColor: colors.gray,
+    backgroundColor: colors.tabBar,
     borderRadius: 25,
     height: 100,
     shadowColor: '#000',
