@@ -9,7 +9,7 @@ const HOBBIES_KEY = 'hobbies';
 
 export const initEtiquetteRules = async () => {
   try {
-    console.log(EtiquetteRules, 'EtiquetteRules');
+    // console.log(EtiquetteRules, 'EtiquetteRules');
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(EtiquetteRules));
     return EtiquetteRules;
   } catch (error) {

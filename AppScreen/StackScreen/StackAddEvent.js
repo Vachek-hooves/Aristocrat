@@ -16,6 +16,7 @@ import {Calendar} from 'react-native-calendars';
 import {useNavigation} from '@react-navigation/native';
 import {useAppContext} from '../../appStore/context';
 import TimePicker from '../../components/UI/TimePicker';
+import {colors} from '../../constants/color';
 
 const StackAddEvent = ({route}) => {
   const {eventType} = route.params;
@@ -29,19 +30,19 @@ const StackAddEvent = ({route}) => {
   const [dressCode, setDressCode] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
 
-  const handleDateSelect = (day) => {
+  const handleDateSelect = day => {
     // setDate(date.toLocaleDateString());
     setDate(day.dateString);
     setShowCalendar(false);
   };
 
-  const handleTimeSelect = (selectedTime) => {
+  const handleTimeSelect = selectedTime => {
     setTime(selectedTime);
   };
 
   const handleSubmit = () => {
     Keyboard.dismiss();
-        if (!title || !date || !time || !location || !description) {
+    if (!title || !date || !time || !location || !description) {
       Alert.alert('Error', 'Please fill in all fields');
       return;
     }
@@ -55,34 +56,29 @@ const StackAddEvent = ({route}) => {
       dressCode: dressCode,
       description: description,
     };
-   
 
     saveEvent(formData);
-    navigation.navigate('TabNavigation', { screen: 'TabEventsScreen' });
+    navigation.navigate('TabNavigation', {screen: 'TabEventsScreen'});
   };
-
-
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.backButton}
           onPress={() => {
             Keyboard.dismiss();
             navigation.goBack();
-          }}
-        >
+          }}>
           <Icon name="arrow-back" size={24} color="#0A84FF" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Add Event</Text>
       </View>
 
-      <ScrollView 
+      <ScrollView
         style={styles.form}
         keyboardShouldPersistTaps="never"
-        showsVerticalScrollIndicator={false}
-      >
+        showsVerticalScrollIndicator={false}>
         <View style={styles.inputContainer}>
           <View style={styles.inputWrapper}>
             <TextInput
@@ -97,18 +93,15 @@ const StackAddEvent = ({route}) => {
             />
           </View>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.input}
             onPress={() => {
               Keyboard.dismiss();
               setShowCalendar(true);
-            }}
-          >
+            }}>
             <View style={styles.inputWithIcon}>
               <Icon name="calendar-outline" size={20} color="#8E8E93" />
-              <Text style={styles.inputText}>
-                {date || '30.11.2024'}
-              </Text>
+              <Text style={styles.inputText}>{date || '30.11.2024'}</Text>
             </View>
           </TouchableOpacity>
 
@@ -159,18 +152,11 @@ const StackAddEvent = ({route}) => {
         </View>
       </ScrollView>
 
-      <TouchableOpacity 
-        style={styles.nextButton} 
-        onPress={handleSubmit}
-      >
+      <TouchableOpacity style={styles.nextButton} onPress={handleSubmit}>
         <Text style={styles.nextButtonText}>Next</Text>
       </TouchableOpacity>
 
-      <Modal
-        visible={showCalendar}
-        transparent={true}
-        animationType="slide"
-      >
+      <Modal visible={showCalendar} transparent={true} animationType="slide">
         <View style={styles.modalContainer}>
           <View style={styles.calendarContainer}>
             <Calendar
@@ -186,10 +172,9 @@ const StackAddEvent = ({route}) => {
                 monthTextColor: '#FFFFFF',
               }}
             />
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.closeButton}
-              onPress={() => setShowCalendar(false)}
-            >
+              onPress={() => setShowCalendar(false)}>
               <Text style={styles.closeButtonText}>Close</Text>
             </TouchableOpacity>
           </View>
@@ -204,7 +189,7 @@ export default StackAddEvent;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: colors.main,
     padding: 20,
   },
   header: {

@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import {welcomeData} from '../../data/appWelcomeData';
 import {useState, useEffect} from 'react';
 import {colors} from '../../constants/color';
@@ -20,30 +27,32 @@ const WelcomeScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.contentContainer}>
-        <Image source={thisWelcomeData.image} style={styles.image} />
-        <Text style={styles.title}> {thisWelcomeData.title}</Text>
-        <Text style={styles.description}> {thisWelcomeData.text}</Text>
-      </View>
+      <ScrollView>
+        <View style={styles.contentContainer}>
+          <Image source={thisWelcomeData.image} style={styles.image} />
+          <Text style={styles.title}> {thisWelcomeData.title}</Text>
+          <Text style={styles.description}> {thisWelcomeData.text}</Text>
+        </View>
 
-      <View style={styles.paginationContainer}>
-        {welcomeData.map((_, index) => (
-          <View
-            key={index}
-            style={[
-              styles.paginationDot,
-              index === currentIndex && styles.paginationDotActive,
-            ]}
-          />
-        ))}
-      </View>
+        <View style={styles.paginationContainer}>
+          {welcomeData.map((_, index) => (
+            <View
+              key={index}
+              style={[
+                styles.paginationDot,
+                index === currentIndex && styles.paginationDotActive,
+              ]}
+            />
+          ))}
+        </View>
 
-      {/* buttons */}
-      <View style={styles.btnContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleNext}>
-          <Text style={styles.buttonText}>Next</Text>
-        </TouchableOpacity>
-      </View>
+        {/* buttons */}
+        <View style={styles.btnContainer}>
+          <TouchableOpacity style={styles.button} onPress={handleNext}>
+            <Text style={styles.buttonText}>Next</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 };

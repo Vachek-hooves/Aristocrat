@@ -38,7 +38,7 @@ const TabHobbiesScreen = () => {
   const {hobbies, deleteHobby} = useAppContext();
   const [selectedType, setSelectedType] = useState('All');
   const [expandedEventId, setExpandedEventId] = useState(null);
-  console.log(hobbies);
+  // console.log(hobbies);
 
   const toggleEventExpansion = id => {
     setExpandedEventId(expandedEventId === id ? null : id);
