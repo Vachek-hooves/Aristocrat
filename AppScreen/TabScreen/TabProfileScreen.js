@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  StyleSheet, 
-  Text, 
-  View, 
-  TouchableOpacity, 
+import React, {useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
   Image,
   TextInput,
-  Alert
+  Alert,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import TabLayout from '../../components/layout/TabLayout';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const TabProfileScreen = () => {
   const [name, setName] = useState('');
@@ -88,7 +91,7 @@ const TabProfileScreen = () => {
       'Delete Profile',
       'Are you sure you want to delete your profile? This action cannot be undone.',
       [
-        { text: 'Cancel', style: 'cancel' },
+        {text: 'Cancel', style: 'cancel'},
         {
           text: 'Delete',
           style: 'destructive',
@@ -107,122 +110,142 @@ const TabProfileScreen = () => {
             }
           },
         },
-      ]
+      ],
     );
   };
 
   if (isNewUser) {
     return (
       <TabLayout>
-        <View style={styles.container}>
-          <View style={styles.createProfileCard}>
-            <TouchableOpacity 
-              onPress={pickImage}
-              style={styles.imageContainer}
-            >
-              {imageUri ? (
-                <Image source={{ uri: imageUri }} style={styles.profileImage} />
-              ) : (
-                <View style={styles.placeholderImage}>
-                  <Text style={styles.placeholderText}>Change Photo</Text>
+        <KeyboardAvoidingView 
+          style={styles.keyboardAvoidingView}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+        >
+          <ScrollView 
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={styles.container}>
+              <View style={styles.createProfileCard}>
+                <TouchableOpacity
+                  onPress={pickImage}
+                  style={styles.imageContainer}>
+                  {imageUri ? (
+                    <Image source={{uri: imageUri}} style={styles.profileImage} />
+                  ) : (
+                    <View style={styles.placeholderImage}>
+                      <Text style={styles.placeholderText}>Change Photo</Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+
+                <TextInput
+                  style={styles.createNameInput}
+                  value={tempName}
+                  onChangeText={setTempName}
+                  placeholder="Enter your name"
+                  placeholderTextColor="#8E8E93"
+                  returnKeyType="done"
+                  blurOnSubmit={true}
+                />
+
+                <View style={styles.createButtonContainer}>
+                  <TouchableOpacity
+                    style={[
+                      styles.createButton,
+                      !tempName.trim() && styles.disabledButton,
+                    ]}
+                    onPress={handleSave}
+                    disabled={!tempName.trim()}>
+                    <Text style={styles.createButtonText}>Save</Text>
+                  </TouchableOpacity>
                 </View>
-              )}
-            </TouchableOpacity>
-
-            <TextInput
-              style={styles.createNameInput}
-              value={tempName}
-              onChangeText={setTempName}
-              placeholder="Enter your name"
-              placeholderTextColor="#8E8E93"
-            />
-
-            <View style={styles.createButtonContainer}>
-              <TouchableOpacity 
-                style={[styles.createButton, !tempName.trim() && styles.disabledButton]}
-                onPress={handleSave}
-                disabled={!tempName.trim()}
-              >
-                <Text style={styles.createButtonText}>Save</Text>
-              </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </TabLayout>
     );
   }
 
   return (
     <TabLayout>
-      <View style={styles.container}>
-        <View style={styles.profileCard}>
-          <TouchableOpacity 
-            onPress={isEditing ? pickImage : null}
-            style={styles.imageContainer}
-          >
-            {imageUri ? (
-              <Image source={{ uri: imageUri }} style={styles.profileImage} />
-            ) : (
-              <View style={styles.placeholderImage}>
-                <Text style={styles.placeholderText}>Add Photo</Text>
-              </View>
-            )}
-            {isEditing && (
-              <View style={styles.editOverlay}>
-                <Text style={styles.editOverlayText}>Change Photo</Text>
-              </View>
-            )}
-          </TouchableOpacity>
-
-          <View style={styles.infoContainer}>
-            {isEditing ? (
-              <TextInput
-                style={styles.nameInput}
-                value={tempName}
-                onChangeText={setTempName}
-                placeholder="Enter your name"
-                placeholderTextColor="#8E8E93"
-              />
-            ) : (
-              <Text style={styles.nameText}>{name}</Text>
-            )}
-          </View>
-        </View>
-
-        {isEditing ? (
-          <>
-            <TouchableOpacity 
-              style={styles.saveButton} 
-              onPress={handleSave}
-            >
-              <Text style={styles.saveButtonText}>Save</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.cancelButton} 
-              onPress={() => {
-                setTempName(name);
-                setIsEditing(false);
-              }}
-            >
-              <Text style={styles.cancelButtonText}>Cancel</Text>
-            </TouchableOpacity>
-          </>
-        ) : (
-          <TouchableOpacity 
-            style={styles.saveButton} 
-            onPress={() => setIsEditing(true)}
-          >
-            <Text style={styles.saveButtonText}>Edit</Text>
-          </TouchableOpacity>
-        )}
-
-        <TouchableOpacity 
-          style={styles.deleteButton}
-          onPress={deleteProfile}
+      <KeyboardAvoidingView 
+        style={styles.keyboardAvoidingView}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+      >
+        <ScrollView 
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
         >
-          <Text style={styles.deleteButtonText}>Delete Profile</Text>
-        </TouchableOpacity>
-      </View>
+          <View style={styles.container}>
+            <View style={styles.profileCard}>
+              <TouchableOpacity
+                onPress={isEditing ? pickImage : null}
+                style={styles.imageContainer}>
+                {imageUri ? (
+                  <Image source={{uri: imageUri}} style={styles.profileImage} />
+                ) : (
+                  <View style={styles.placeholderImage}>
+                    <Text style={styles.placeholderText}>Add Photo</Text>
+                  </View>
+                )}
+                {isEditing && (
+                  <View style={styles.editOverlay}>
+                    <Text style={styles.editOverlayText}>Change Photo</Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+
+              <View style={styles.infoContainer}>
+                {isEditing ? (
+                  <TextInput
+                    style={styles.nameInput}
+                    value={tempName}
+                    onChangeText={setTempName}
+                    placeholder="Enter your name"
+                    placeholderTextColor="#8E8E93"
+                    returnKeyType="done"
+                    blurOnSubmit={true}
+                  />
+                ) : (
+                  <Text style={styles.nameText}>{name}</Text>
+                )}
+              </View>
+            </View>
+
+            {isEditing ? (
+              <>
+                <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+                  <Text style={styles.saveButtonText}>Save</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.cancelButton}
+                  onPress={() => {
+                    setTempName(name);
+                    setIsEditing(false);
+                  }}>
+                  <Text style={styles.cancelButtonText}>Cancel</Text>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <TouchableOpacity
+                style={styles.saveButton}
+                onPress={() => setIsEditing(true)}>
+                <Text style={styles.saveButtonText}>Edit</Text>
+              </TouchableOpacity>
+            )}
+
+            <TouchableOpacity style={styles.deleteButton} onPress={deleteProfile}>
+              <Text style={styles.deleteButtonText}>Delete Profile</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </TabLayout>
   );
 };
@@ -231,7 +254,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    marginTop: 100,
+    // marginTop: 100,
+  },
+  keyboardAvoidingView: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 40,
   },
   profileCard: {
     backgroundColor: '#1C1C1E',
@@ -244,7 +274,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   profileImage: {
-      width: 200,
+    width: 200,
     height: 200,
     borderRadius: 50,
   },
